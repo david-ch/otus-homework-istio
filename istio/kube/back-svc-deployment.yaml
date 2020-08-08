@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-svc
+  labels:
+    app: back-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back-svc
+  template:
+    metadata:
+      labels:
+        app: back-svc
+    spec:
+      containers:
+      - name: back-svc
+        image: dachdev/otus-architect:hw24-back-service
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          initialDelaySeconds: 2
+          periodSeconds: 5

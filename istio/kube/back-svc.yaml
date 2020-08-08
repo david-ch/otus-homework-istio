@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-svc
+  labels:
+    app: back-svc
+spec:
+  selector:
+    app: back-svc
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000 
+  type: NodePort

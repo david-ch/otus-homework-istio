@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-svc
+  labels:
+    app: front-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-svc
+  template:
+    metadata:
+      labels:
+        app: front-svc
+    spec:
+      containers:
+      - name: front-svc
+        image: dachdev/otus-architect:hw24-front-service
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 8000
+        env:
+        - name: BACK_SVC_ADDRESS
+          value: http://back-svc:8000
+        readinessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          initialDelaySeconds: 2
+          periodSeconds: 5

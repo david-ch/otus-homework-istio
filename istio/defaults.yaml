@@ -6,3 +6,10 @@ metadata:
 spec:
   mtls:
     mode: DISABLE # Отключаем шифрование трафика на прокси
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+  labels:
+    istio-injection: enabled # Включаем инжект сайдкаров Istio для неймспейса
